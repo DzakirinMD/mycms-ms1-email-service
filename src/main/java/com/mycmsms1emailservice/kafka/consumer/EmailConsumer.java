@@ -41,20 +41,20 @@ public class EmailConsumer {
             InhouseTransferEventDTO inhouseTransferEventDTO = om.readValue(message, InhouseTransferEventDTO.class);
 
             EmailDetails emailDetails = new EmailDetails();
-            emailDetails.setRecipient(inhouseTransferEventDTO.getInhouseTransfer().getOrderEmailRecipient());
-            emailDetails.setSubject("Automated order receipt for: " + inhouseTransferEventDTO.getInhouseTransfer().getOrderName());
+            emailDetails.setRecipient(inhouseTransferEventDTO.getInhouseTransferDTO().getInhouseTransferTrxEmailRecipient());
+            emailDetails.setSubject("Automated Inhouse Transfer Email for : " + inhouseTransferEventDTO.getInhouseTransferDTO().getInhouseTransferTrxName());
             emailDetails.setMsgBody("Hi !\n\n" +
-                    "Your order has been created. Below are the details : \n" +
-                    "\nItem: " + inhouseTransferEventDTO.getInhouseTransfer().getOrderName() +
-                    "\nTotal quantity: " + inhouseTransferEventDTO.getInhouseTransfer().getOrderQty() +
-                    "\nTotal price: RM " + inhouseTransferEventDTO.getInhouseTransfer().getOrderPrice() +
-                    "\nOrder Status: " + inhouseTransferEventDTO.getStatus() +
+                    "Your Inhouse Transfer has been created. Below are the details : \n" +
+                    "\nTransaction Name: " + inhouseTransferEventDTO.getInhouseTransferDTO().getInhouseTransferTrxName() +
+                    "\nTransaction quantity: " + inhouseTransferEventDTO.getInhouseTransferDTO().getInhouseTransferTrxQty() +
+                    "\nTransaction Amount: RM " + inhouseTransferEventDTO.getInhouseTransferDTO().getInhouseTransferTrxAmount() +
+                    "\nTransaction Status: " + inhouseTransferEventDTO.getStatus() +
                     "\n\nThank You !!"
             );
 
             String status = emailService.sendSimpleEmail(emailDetails);
 
-            LOGGER.info("Automated order email has been send in email-service => {}", status);
+            LOGGER.info("Automated Inhouse Transfer email has been send in email-service => {}", status);
         } catch (JsonProcessingException e) {
             LOGGER.error(e.toString());
         }

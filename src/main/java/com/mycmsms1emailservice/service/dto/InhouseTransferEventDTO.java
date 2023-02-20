@@ -17,5 +17,5 @@ public class InhouseTransferEventDTO implements Serializable {
 
     private String message;
     private String status;
-    private InhouseTransferDTO inhouseTransfer;
+    private InhouseTransferDTO inhouseTransferDTO;
 }
